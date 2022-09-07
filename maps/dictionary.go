@@ -1,7 +1,9 @@
 package maps
 
-func Search(dictionary map[string]string, term string) string {
-	if meaning, ok := dictionary[term]; ok {
+type Dictionary map[string]string
+
+func (d Dictionary) Search(term string) string {
+	if meaning, ok := d[term]; ok {
 		return meaning
 	}
 	return ""
