@@ -1,10 +1,14 @@
 package maps
 
+import "errors"
+
 type Dictionary map[string]string
 
-func (d Dictionary) Search(term string) string {
-	if meaning, ok := d[term]; ok {
-		return meaning
+var ErrNotFound = errors.New("could not find the word you were looking for")
+
+func (d Dictionary) Search(term string) (string, error) {
+	if definition, ok := d[term]; ok {
+		return definition, nil
 	}
-	return ""
+	return "", ErrNotFound
 }
