@@ -34,3 +34,11 @@ func (d Dictionary) Add(word, definition string) error {
 
 	return nil
 }
+
+func (d Dictionary) Update(word, definition string) error {
+	if _, err := d.Search(word); err != nil {
+		return ErrNotFound
+	}
+	d[word] = definition
+	return nil
+}
