@@ -15,7 +15,7 @@ func TestSearch(t *testing.T) {
 	t.Run("unknown word", func(t *testing.T) {
 		_, got := dictionary.Search("unknown")
 
-		assertErrors(t, got, ErrNotFound)
+		assertErrors(t, got, ErrWordDoesNotExist)
 	})
 }
 
