@@ -15,7 +15,7 @@ func TestSearch(t *testing.T) {
 	t.Run("unknown word", func(t *testing.T) {
 		_, got := dictionary.Search("unknown")
 
-		assertErrors(t, got, ErrWordDoesNotExist)
+		assertErrors(t, got, ErrNotFound)
 	})
 }
 
@@ -60,8 +60,19 @@ func TestUpdate(t *testing.T) {
 		newDefinition := "new definition"
 
 		err := dictionary.Update("unknown", newDefinition)
-		assertError(t, err, ErrNotFound)
+		assertError(t, err, ErrWordDoesNotExist)
 	})
+}
+
+func TestDelete(t *testing.T) {
+	word := "test"
+	dictionary := Dictionary{word: "this is just a test"}
+
+	dictionary.Delete(word)
+
+	if _, err := dictionary.Search(word); err != ErrNotFound {
+		t.Errorf("Expected %q to be deleted", word)
+	}
 }
 
 func assertError(t testing.TB, got, want error) {
